@@ -1,0 +1,3 @@
+# ruff.toml
+[lint]
+select = ["F401", "F821"]

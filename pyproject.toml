@@ -1,0 +1,63 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+authors = [
+    {name = "Konstantin Zabolotnev", email = "konstantin.zabolotnev@gmail.com"},
+    {name = "Hexlet team", email = "team@hexlet.io"}
+]
+requires-python = ">=3.12"
+name = "gendiff"
+version = "0.1.0"
+description = "Compares two configuration files and shows a difference"
+readme = "README.md"
+dependencies = []
+
+[tool.uv]
+dev-dependencies = [
+    "ruff>=0.7.1",
+    "pytest>=8.3.3",
+    "pytest-cov>=5.0.0",
+]
+
+[project.scripts]
+gendiff = "gendiff.scripts.gendiff:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["gendiff"]
+
+[tool.hatch.build]
+include = [
+    "gendiff/__init__.py",
+    "gendiff/engine.py",
+    "gendiff/file_loader.py",
+    "gendiff/scripts/gendiff.py"
+]
+
+exclude = [
+    "__pycache__",
+    "*.pyc"
+]
+
+[tool.ruff]
+line-length = 88
+select = [
+    "E", "W", "F", "I",  # Базовые проверки
+    "Q",  # flake8-quotes для проверки кавычек
+    "E26",  # Пробелы в комментариях (E261, E262)
+]
+ignore = ["E203"]
+exclude = ["build", "dist", ".git", "__pycache__"]
+
+[tool.ruff.isort]
+known-first-party = ["gendiff"]
+required-imports = ["from __future__ import annotations"]
+combine-as-imports = true  # Объединяет импорты из одного модуля
+
+[tool.ruff.flake8-quotes]
+inline-quotes = "double"  # Использовать двойные кавычки для строк
+multiline-quotes = "double"
+docstring-quotes = "double"
+
+
