@@ -2,15 +2,16 @@ name: Python CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -18,15 +19,24 @@ jobs:
       
       - name: Install dependencies
         run: |
-          pip install uv
-          make install
+          python -m pip install uv
+          uv venv
+          source .venv/bin/activate
+          uv pip install -e .[dev]
       
-      - name: Run linter and pytest
+      - name: Run linter
         run: |
-          make check
+          source .venv/bin/activate
+          make lint
+      
+      - name: Run tests
+        run: |
+          source .venv/bin/activate
+          make test
       
       - name: Run test coverage
         run: |
+          source .venv/bin/activate
           make test-coverage
       
       - name: SonarQube Scan
