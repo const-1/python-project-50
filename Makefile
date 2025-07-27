@@ -2,7 +2,7 @@
 
 # Install dependencies and setup development environment
 install:
-	uv pip install -e .[dev]
+	uv pip install --system -e .[dev]  # Ключевое исправление!
 
 # Build package distribution
 build:
