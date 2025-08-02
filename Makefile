@@ -2,7 +2,7 @@
 
 # Install dependencies and setup development environment
 install:
-	uv pip install -e .[dev]  
+	uv pip install -e .[dev]
 
 # Build package distribution
 build:
@@ -19,19 +19,19 @@ lint:
 # Combined check for CI: run linter and tests
 check:
 	make lint
-	make test
+	make test-coverage  
 
-# Run tests
+# Run tests (using pytest from virtual environment)
 test:
-	pytest -v
+	uv run pytest -v tests/
 
 # Run tests with coverage report (for SonarQube)
 test-coverage:
-	pytest --cov=gendiff --cov-report=xml
+	uv run pytest --cov=gendiff --cov-report=xml tests/
 
 # Run gendiff with example files
 demo:
-	uv run gendiff file1.json file2.json
+	uv run gendiff tests/fixtures/file1.json tests/fixtures/file2.json
 
 # Clean build artifacts
 clean:

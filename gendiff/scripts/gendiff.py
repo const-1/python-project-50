@@ -1,67 +1,84 @@
-import argparse
 import json
+from pathlib import Path
 
-from gendiff import generate_diff
-from gendiff.file_loader import load_file 
+def format_value(value):
+    """Convert Python values to string representation for diff output"""
+    if value is None:
+        return 'null'
+    elif isinstance(value, bool):
+        return str(value).lower()
+    elif isinstance(value, (int, float)):
+        return str(value)
+    return value  # strings are returned as-is
 
-
-def main():
+def generate_diff(data1, data2):
     """
-    Main function that handles command-line interface for gendiff.
-    Parses arguments, loads files, generates diff, and prints result.
+    Generate a formatted diff between two data sources (dicts or file paths).
+    
+    Args:
+        data1 (dict | str | Path): First data (dictionary or file path)
+        data2 (dict | str | Path): Second data (dictionary or file path)
+    
+    Returns:
+        str: Formatted diff string showing differences between dictionaries
+    
+    Raises:
+        TypeError: If inputs are not dictionaries or valid paths
+        FileNotFoundError: If input file doesn't exist
+        ValueError: If file contains invalid JSON
     """
-    # Initialize argument parser with custom settings
-    parser = argparse.ArgumentParser(
-        description='Compares two configuration files and shows a difference.',
-        add_help=False  # We'll add custom help option manually
-    )
+    # Convert Path objects to strings
+    if isinstance(data1, Path):
+        data1 = str(data1)
+    if isinstance(data2, Path):
+        data2 = str(data2)
 
-    # Add format option with default and help text
-    parser.add_argument(
-        '-f', '--format',
-        help='set format of output (default: stylish)',
-        default='stylish',
-        metavar='FORMAT'
-    )
-
-    # Add required positional arguments for file paths
-    parser.add_argument(
-        'first_file',
-        help='first configuration file (JSON)',
-        metavar='FILE1'
-    )
-    parser.add_argument(
-        'second_file',
-        help='second configuration file (JSON)',
-        metavar='FILE2'
-    )
+    # Process first input
+    if isinstance(data1, str):
+        try:
+            with open(data1, 'r') as f:
+                data1 = json.load(f)
+        except FileNotFoundError:
+            raise FileNotFoundError(f"Input file not found: {data1}")
+        except json.JSONDecodeError:
+            raise ValueError(f"Invalid JSON format in file: {data1}")
     
-    # Add help option manually for better control
-    parser.add_argument(
-        '-h', '--help',
-        action='help',
-        default=argparse.SUPPRESS,
-        help='show this help message and exit'
-    )
+    # Process second input
+    if isinstance(data2, str):
+        try:
+            with open(data2, 'r') as f:
+                data2 = json.load(f)
+        except FileNotFoundError:
+            raise FileNotFoundError(f"Input file not found: {data2}")
+        except json.JSONDecodeError:
+            raise ValueError(f"Invalid JSON format in file: {data2}")
     
-    # Parse the arguments
-    args = parser.parse_args()
-
-    try:
-        # Load and parse both configuration files
-        data1 = load_file(args.first_file) 
-        data2 = load_file(args.second_file)
-
-        # Generate the difference between the two files
-        diff = generate_diff(data1, data2, args.format)
-        print(diff)
-    except json.JSONDecodeError as e:
-        print(f"Error decoding JSON: {e}")
-        exit(1)
-    except FileNotFoundError as e:
-        print(f"File not found: {e}")
-        exit(1)
-
-
-if __name__ == '__main__':
-    main()
+    # Validate input types
+    if not isinstance(data1, dict):
+        raise TypeError(f"Expected dict, got {type(data1).__name__} for first argument")
+    if not isinstance(data2, dict):
+        raise TypeError(f"Expected dict, got {type(data2).__name__} for second argument")
+    
+    # Generate sorted list of all unique keys
+    all_keys = sorted(set(data1.keys()) | set(data2.keys()))
+    
+    # Build diff lines
+    lines = []
+    for key in all_keys:
+        if key not in data2:
+            val = format_value(data1[key])
+            lines.append(f"  - {key}: {val}")
+        elif key not in data1:
+            val = format_value(data2[key])
+            lines.append(f"  + {key}: {val}")
+        elif data1[key] == data2[key]:
+            val = format_value(data1[key])
+            lines.append(f"    {key}: {val}")
+        else:
+            val1 = format_value(data1[key])
+            val2 = format_value(data2[key])
+            lines.append(f"  - {key}: {val1}")
+            lines.append(f"  + {key}: {val2}")
+    
+    # Format as single string
+    return "{\n" + "\n".join(lines) + "\n}"
