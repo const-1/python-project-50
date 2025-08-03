@@ -15,7 +15,10 @@ def read_fixture(filename):
 
 @pytest.mark.parametrize("file1, file2, expected", [
     ('file1.json', 'file2.json', 'expected.txt'),
+    ('file1.yml', 'file2.yml', 'expected.txt'),
+    ('file1.yaml', 'file2.yaml', 'expected.txt'),
 ])
+
 def test_generate_diff(file1, file2, expected):
     """Test generate_diff function with flat JSON files"""
     # Get paths to fixture files
