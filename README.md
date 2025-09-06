@@ -4,12 +4,16 @@
 ### Demo
 
 #### 1. Help Output
-[![asciicast](https://asciinema.org/a/bJARYgFM05RMeYGV74kzdUZ79.svg)](https://asciinema.org/a/bJARYgFM05RMeYGV74kzdUZ79)  
+[![asciicast](https://asciinema.org/a/bJARYgFM05RMeYGV74kzdUZ79.svg)](https://asciinema.org/a/bJARYgFM05RMeYGV74kzdUZ79)
 *Shows available commands, options, and usage examples for the gendiff tool.*
 
 #### 2. File Comparison (JSON & YAML)
-[![asciicast](https://asciinema.org/a/8o063qwKO74pyoucbDqtM1ouS.svg)](https://asciinema.org/a/8o063qwKO74pyoucbDqtM1ouS)  
+[![asciicast](https://asciinema.org/a/8o063qwKO74pyoucbDqtM1ouS.svg)](https://asciinema.org/a/8o063qwKO74pyoucbDqtM1ouS)
 *Demonstrates comparing configuration files in JSON and YAML formats with stylish output formatting.*
+
+#### 3. Recursive Demo
+[![asciicast](https://asciinema.org/a/HDPd9oZuPalSS9hOyJvb4T5Vr.svg)](https://asciinema.org/a/HDPd9oZuPalSS9hOyJvb4T5Vr)
+*Demonstrates recursive comparison of nested data structures.*
 
 ### CI and Code Quality
 [![CI](https://github.com/const-1/python-project-50/actions/workflows/python-ci.yml/badge.svg)](https://github.com/const-1/python-project-50/actions/workflows/python-ci.yml)

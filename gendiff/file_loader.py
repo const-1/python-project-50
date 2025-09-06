@@ -1,25 +1,20 @@
-# python-project-50/gendiff/file_loader.py
-
-import json
-from pathlib import Path
-
+import os
+from gendiff.parsers import parse_file
 
 def load_file(file_path):
-    """
-    Load and parse a JSON configuration file.
+    """Load and parse data from file based on its extension."""
+    _, extension = os.path.splitext(file_path)
+    format_name = extension.lstrip('.').lower()
     
-    Args:
-        file_path (str): Path to the JSON file
-        
-    Returns:
-        dict: Parsed JSON data as Python dictionary
-        
-    Note: Converts relative paths to absolute paths
-    """
-    # Convert to absolute path for consistent behavior
-    absolute_path = Path(file_path).resolve()
+    # Нормализуем название формата для YAML
+    if format_name == 'yml':
+        format_name = 'yaml'
     
-    # Open file using context manager (automatically handles file closing)
-    with open(absolute_path, 'r') as file:
-        # Parse JSON content into Python dictionary
-        return json.load(file)
+    data = parse_file(file_path, format_name)
+    return data, format_name
+
+# Алиас для обратной совместимости
+def load_data(file_path):
+    """Alias for load_file that returns only data."""
+    data, _ = load_file(file_path)
+    return data
