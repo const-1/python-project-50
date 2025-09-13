@@ -15,6 +15,14 @@
 [![asciicast](https://asciinema.org/a/HDPd9oZuPalSS9hOyJvb4T5Vr.svg)](https://asciinema.org/a/HDPd9oZuPalSS9hOyJvb4T5Vr)
 *Demonstrates recursive comparison of nested data structures.*
 
+#### 4. Plain Format Demo
+[![asciicast](https://asciinema.org/a/DNDSFpktQVOcX1B56sn0FZFV6.svg)](https://asciinema.org/a/DNDSFpktQVOcX1B56sn0FZFV6)
+*Demonstrates the plain text format output for differences.*
+
+#### 5. JSON Format Demo
+[![asciicast](https://asciinema.org/a/Ch3ip08LMPfWFw5UmdSHImsj6.svg)](https://asciinema.org/a/Ch3ip08LMPfWFw5UmdSHImsj6)
+*Demonstrates the JSON format output for machine-readable differences.*
+
 ### CI and Code Quality
 [![CI](https://github.com/const-1/python-project-50/actions/workflows/python-ci.yml/badge.svg)](https://github.com/const-1/python-project-50/actions/workflows/python-ci.yml)
 

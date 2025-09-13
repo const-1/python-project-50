@@ -4,7 +4,6 @@ from gendiff import generate_diff
 
 def main():
     """Command line interface for gendiff"""
-    # Set up argument parser
     parser = argparse.ArgumentParser(
         description='Generate diff between two configuration files',
         prog='gendiff'
@@ -14,13 +13,11 @@ def main():
     parser.add_argument('-f', '--format',
                         help='Output format (default: "stylish")',
                         default='stylish',
-                        choices=['stylish'])  # Adding other formats as implemented
-    
-    # Parse arguments
+                        choices=['stylish', 'plain', 'json'])  
+
     args = parser.parse_args()
-    
+
     try:
-        # Generate and print diff with format option
         diff = generate_diff(args.file1, args.file2, args.format)
         print(diff)
     except FileNotFoundError as e:

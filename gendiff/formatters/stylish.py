@@ -25,17 +25,17 @@ def format_stylish(diff, depth=0):
             lines.append(format_stylish(node['children'], depth + 1))
             lines.append(f"{indent}    }}")
         elif type_ == 'added':
-            value = stringify_value(node['value'], depth + 1)  # Увеличиваем глубину
+            value = stringify_value(node['value'], depth + 1)  
             lines.append(f"{indent}  + {key}: {value}")
         elif type_ == 'removed':
-            value = stringify_value(node['value'], depth + 1)  # Увеличиваем глубину
+            value = stringify_value(node['value'], depth + 1)  
             lines.append(f"{indent}  - {key}: {value}")
         elif type_ == 'unchanged':
-            value = stringify_value(node['value'], depth + 1)  # Увеличиваем глубину
+            value = stringify_value(node['value'], depth + 1)  
             lines.append(f"{indent}    {key}: {value}")
         elif type_ == 'changed':
-            old_value = stringify_value(node['old_value'], depth + 1)  # Увеличиваем глубину
-            new_value = stringify_value(node['new_value'], depth + 1)  # Увеличиваем глубину
+            old_value = stringify_value(node['old_value'], depth + 1)  
+            new_value = stringify_value(node['new_value'], depth + 1)  
             lines.append(f"{indent}  - {key}: {old_value}")
             lines.append(f"{indent}  + {key}: {new_value}")
     

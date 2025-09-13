@@ -1,14 +1,14 @@
 import pytest
-from gendiff.parsers import parse  # Измените импорт на существующую функцию
+from gendiff.parsers import parse  
 
 def test_parse_json():
     json_content = '{"key": "value"}'
-    result = parse(json_content, 'json')  # Используйте существующую функцию parse
+    result = parse(json_content, 'json')  
     assert result == {"key": "value"}
 
 def test_parse_yaml():
     yaml_content = "key: value"
-    result = parse(yaml_content, 'yaml')  # Используйте существующую функцию parse
+    result = parse(yaml_content, 'yaml')  
     assert result == {"key": "value"}
 
 def test_parse_unknown_format():
