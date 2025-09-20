@@ -1,16 +1,18 @@
 import os
 from gendiff.parsers import parse_file
 
+def get_format_name(file_path):
+    """Extract and normalize format name from file extension."""
+    _, extension = os.path.splitext(file_path)
+    format_name = extension.lstrip('.').lower()
+    return 'yaml' if format_name == 'yml' else format_name
+
 def load_file(file_path):
     """Load and parse data from file based on its extension."""
     if not os.path.exists(file_path):
         raise FileNotFoundError(f"File {file_path} does not exist")
-    
-    _, extension = os.path.splitext(file_path)
-    format_name = extension.lstrip('.').lower()
 
-    if format_name == 'yml':
-        format_name = 'yaml'
+    format_name = get_format_name(file_path)
 
     if format_name not in ['json', 'yaml']:
         raise ValueError(f"Unsupported format: {format_name}")
