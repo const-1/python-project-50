@@ -12,6 +12,7 @@ def stringify_value(value, depth):
     else:
         return str(value)
 
+
 def format_stylish(diff, depth=0):
     lines = []
     indent = '    ' * depth
@@ -42,3 +43,5 @@ def format_stylish(diff, depth=0):
     if depth == 0:
         return '{\n' + '\n'.join(lines) + '\n}'
     return '\n'.join(lines)
+
+

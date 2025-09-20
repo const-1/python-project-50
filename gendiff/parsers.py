@@ -1,6 +1,7 @@
 import json
 import yaml
 
+
 def parse(content, format_name):
     """Parse content based on format."""
     if format_name == 'json':
@@ -16,6 +17,7 @@ def parse(content, format_name):
     else:
         raise ValueError(f"Unsupported format: {format_name}")
 
+
 def parse_file(file_path, format_name):
     """Parse file content based on format."""
     try:
@@ -24,3 +26,5 @@ def parse_file(file_path, format_name):
         return parse(content, format_name)
     except IOError as e:
         raise ValueError(f"Error reading file {file_path}: {str(e)}")
+
+

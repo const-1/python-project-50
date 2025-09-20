@@ -1,11 +1,13 @@
 import os
 from gendiff.parsers import parse_file
 
+
 def get_format_name(file_path):
     """Extract and normalize format name from file extension."""
     _, extension = os.path.splitext(file_path)
     format_name = extension.lstrip('.').lower()
     return 'yaml' if format_name == 'yml' else format_name
+
 
 def load_file(file_path):
     """Load and parse data from file based on its extension."""
@@ -24,7 +26,10 @@ def load_file(file_path):
 
     return data, format_name
 
+
 def load_data(file_path):
     """Alias for load_file that returns only data."""
     data, _ = load_file(file_path)
     return data
+
+

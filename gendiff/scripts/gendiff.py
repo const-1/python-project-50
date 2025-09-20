@@ -1,6 +1,7 @@
-#!/usr/bin/env python3
+# !/usr/bin/env python3
 import argparse
 from gendiff import generate_diff
+
 
 def main():
     """Command line interface for gendiff"""
@@ -8,8 +9,12 @@ def main():
         description='Generate diff between two configuration files',
         prog='gendiff'
     )
-    parser.add_argument('file1', help='First configuration file (JSON or YAML)')
-    parser.add_argument('file2', help='Second configuration file (JSON or YAML)')
+    parser.add_argument(
+            'file1', help='First configuration file (JSON or YAML)'
+            )
+    parser.add_argument(
+            'file2', help='Second configuration file (JSON or YAML)'
+            )
     parser.add_argument('-f', '--format',
                         help='Output format (default: "stylish")',
                         default='stylish',
@@ -32,3 +37,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
