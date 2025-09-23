@@ -21,8 +21,6 @@ def read_file(file_path):
     ('file1_recursive.yml', 'file2_recursive.yml',
      'expected_recursive.txt'),
 ])
-
-
 def test_gendiff_default_format(file1, file2, expected):
     file1_path = get_fixture_path(file1)
     file2_path = get_fixture_path(file2)
@@ -44,8 +42,6 @@ def test_gendiff_default_format(file1, file2, expected):
     ('file1_recursive.yml', 'file2_recursive.yml', 'json',
      'expected_json.txt'),
 ])
-
-
 def test_gendiff_formats(file1, file2, format_name, expected):
     file1_path = get_fixture_path(file1)
     file2_path = get_fixture_path(file2)

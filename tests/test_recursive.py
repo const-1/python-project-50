@@ -16,8 +16,6 @@ def read_file(filename):
     ('file1_recursive.json', 'file2_recursive.json', 'expected_recursive.txt'),
     ('file1_recursive.yml', 'file2_recursive.yml', 'expected_recursive.txt'),
 ])
-
-
 def test_recursive_diff(file1, file2, expected):
     file1_path = get_fixture_path(file1)
     file2_path = get_fixture_path(file2)
